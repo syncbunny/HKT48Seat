@@ -1,0 +1,19 @@
+{
+	"manifest_version": 3,
+	"name": "HKT48Theater-SeatNo",
+	"version": "1.0",
+	"description": "Show HKT48 Theater seat",
+	"permissions": ["activeTab"],
+	"content_scripts": [
+		{
+			"matches": ["https://hkt48-ticket.com/history/*"],
+			"js": ["content.js"]
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": ["images/HKT48_Seat.png"],
+			"matches": ["https://hkt48-ticket.com/*"]
+		}
+	]
+}
