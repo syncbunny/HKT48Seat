@@ -42,6 +42,7 @@ function edit() {
 		return;
 	}
 
+	el.style.cursor = 'pointer';
 	el.addEventListener('click', display_seat);
 	el.style.textDecoration = 'underline';
 }
