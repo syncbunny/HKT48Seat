@@ -21,7 +21,8 @@ function display_seat() {
 	overlay.style.justifyContent = 'center';
 	overlay.style.alignItems = 'center';
 	overlay.addEventListener('click', (evt) => {
-		evt.target.remove();
+		//evt.target.remove();
+		overlay.remove();
 	});
 
 	// 座席表準備
@@ -30,9 +31,6 @@ function display_seat() {
 	seat.style.width = 'auto';
 	seat.style.height = 'auto';
 	overlay.appendChild(seat);
-	overlay.addEventListener('click', (evt) => {
-		overlay.remove();
-	});
 	
 	// 表示
 	document.querySelector('body').appendChild(overlay);	
