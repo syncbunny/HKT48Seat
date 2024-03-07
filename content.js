@@ -1,13 +1,24 @@
 const QUERY_SELECTOR = 'body > div > main > div > div > div.box > div:nth-child(4) > div.prices.mt-3 > div:nth-child(2) > div.w-100.my-1 > div > span';
-
+const THEATER_SELECTOR = 'body > div > main > div > div > div.box > div:nth-child(4) > div:nth-child(4)';
 
 function target_element() {
-	// TODO: 劇場公演以外は除外
+	// 劇場公演以外は除外
+	const place = document.querySelector(THEATER_SELECTOR);
+	if (!place) {
+		return null;
+	}
+	if (!place.innerText) {
+		return null;
+	}
+	if (!place.innerText.match(/HKT48劇場/)) {
+		return null;
+	}
+
 	const el = document.querySelector(QUERY_SELECTOR);
 	return el;
 }
 
-function display_seat() {
+function display_seat(n) {
 	// オーバーレイ準備
 	const overlay = document.createElement('div');
 	overlay.style.zIndex = 1;
@@ -36,15 +47,64 @@ function display_seat() {
 	document.querySelector('body').appendChild(overlay);	
 }
 
+function parse_seat_no(s) {
+	let ret = 0;	
+	for (i = 0; i < s.length; i++) {
+		c = s[i];
+		n = null;
+		switch(c) {
+		case '０':
+			n = 0;
+			break;
+		case '１':
+			n = 1;
+			break;
+		case '２':
+			n = 2;
+			break;
+		case '３':
+			n = 3;
+			break;
+		case '４':
+			n = 4;
+			break;
+		case '５':
+			n = 5;
+			break;
+		case '６':
+			n = 6;
+			break;
+		case '７':
+			n = 7;
+			break;
+		case '８':
+			n = 8;
+			break;
+		case '９':
+			n = 9;
+			break;
+		}
+		if (n !== null) {
+			ret *= 10;
+			ret += n;
+		}
+	}
+	return ret;
+}
+
 function edit() {
 	const el = target_element();
 	if (!el) {
 		return;
 	}
 
+	let seat_no = null;
+	//seat_no = parse_seat_no(el.innerText);
+
+	el.style.textDecoration = 'underline';
 	el.style.cursor = 'pointer';
 	el.addEventListener('click', display_seat);
-	el.style.textDecoration = 'underline';
+	//console.log(seat_no);
 }
 
 edit();
